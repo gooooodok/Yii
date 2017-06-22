@@ -1,3 +1,9 @@
+<?php
+
+use yii\widgets\LinkPager;
+
+?>
+
 <h1>Комментарии</h1>
 
 <ul>
@@ -5,3 +11,5 @@
 	<li><b><?=$comment->name?>:</b> <?=$comment->text?></li>
 <?php } ?>
 </ul>
+
+<?= LinkPager::widget(['pagination' => $pagination]) ?>
