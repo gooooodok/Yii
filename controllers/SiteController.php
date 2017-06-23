@@ -184,30 +184,29 @@ class SiteController extends Controller
             ->limit($pagination->limit)
             ->all();
 
+        //Получит куку:
+        $cookies = Yii::$app->request->cookies;
+
         return $this->render('comments', [
             'comments' => $comments,
             'pagination' => $pagination,
-            //получить сессию:
-            'name' => Yii::$app->session->get('name')
+            'name' => $cookies->getValue('name')
         ]);
     }
 
     public function actionUser()
     {
-        //GET запрос:
-        $name = Yii::$app->request->get('name', 'Гость');
-        //$name = isset($_GET['name']) ? $_GET['name'] : null; еквивалентно строке више
-
+        $name = Yii::$app->request->get('name');
         /**
-        Эти две строки еквивалентны -
-        $name = Yii::$app->request->get();
-        $name = $_GET;
+            Получаем Юзера c помошью куки. Разница между сесиями и куками: куки - на стороне браузера клиента, сессии - на стороне сервера. 
         */
 
-        // Сессия:
-        $session = Yii::$app->session;
-
-        $session->set('name', $name);
+        // Записать Куки в браузер пользователя:
+        $cookies = Yii::$app->response->cookies;
+        $cookies->add(new \yii\web\Cookie([
+                'name' => 'name',
+                'value' => $name
+            ]));
 
         return $this->render('user', [
                 'name' => $name
