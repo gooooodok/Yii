@@ -186,22 +186,28 @@ class SiteController extends Controller
 
         return $this->render('comments', [
             'comments' => $comments,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            //получить сессию:
+            'name' => Yii::$app->session->get('name')
         ]);
     }
 
     public function actionUser()
     {
+        //GET запрос:
         $name = Yii::$app->request->get('name', 'Гость');
         //$name = isset($_GET['name']) ? $_GET['name'] : null; еквивалентно строке више
 
         /**
         Эти две строки еквивалентны -
-
         $name = Yii::$app->request->get();
         $name = $_GET;
-
         */
+
+        // Сессия:
+        $session = Yii::$app->session;
+
+        $session->set('name', $name);
 
         return $this->render('user', [
                 'name' => $name
