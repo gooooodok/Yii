@@ -189,4 +189,22 @@ class SiteController extends Controller
             'pagination' => $pagination
         ]);
     }
+
+    public function actionUser()
+    {
+        $name = Yii::$app->request->get('name', 'Гость');
+        //$name = isset($_GET['name']) ? $_GET['name'] : null; еквивалентно строке више
+
+        /**
+        Эти две строки еквивалентны -
+
+        $name = Yii::$app->request->get();
+        $name = $_GET;
+
+        */
+
+        return $this->render('user', [
+                'name' => $name
+            ]);
+    }
 }
