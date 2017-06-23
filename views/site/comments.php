@@ -8,7 +8,7 @@ use yii\widgets\LinkPager;
 
 <ul>
 <?php foreach ($comments as $comment) { ?>
-	<li><b><?=$comment->name?>:</b> <?=$comment->text?></li>
+	<li><b><a href="<?=Yii::$app->urlManager->createURL(['site/user', 'name' => $comment->name])?>"><?=$comment->name?>:</a></b> <?=$comment->text?></li>
 <?php } ?>
 </ul>
 
